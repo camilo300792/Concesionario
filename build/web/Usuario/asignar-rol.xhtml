@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/Facelets/Templates/base.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <ui:define name="titulo">
+        Asignar Rol
+    </ui:define>
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Asignar Rol"/></h1>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Rol:" for="rolId" />
+                    <h:selectOneMenu id="rolId" value="#{rolUsuarioController.rol.id}" title="RolId" required="true" requiredMessage="The RolId field is required.">
+                        <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
+                        <f:selectItems value="#{rolController.listarRoles()}" var="item" itemLabel="#{item.nombre}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Usuario:" for="usuarioId" />
+                    <h:selectOneMenu id="usuarioId" value="#{rolUsuarioController.usuario.id}" title="UsuarioId" required="true" requiredMessage="The UsuarioId field is required.">
+                        <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
+                        <f:selectItems value="#{usuarioController.listarUsuarios()}" var="item" itemLabel="#{item.personaId.nombres}" itemValue="#{item.id}"/>
+                    </h:selectOneMenu>
+                    <h:commandButton action="#{rolUsuarioController.asignarRol()}" value="Asignar Rol" />
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>

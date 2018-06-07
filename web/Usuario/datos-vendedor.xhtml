@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/Facelets/Templates/base.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Datos Vendedor
+    </ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Datos Vendedor"/></h1>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Nombres:" for="nombres" />
+                    <h:inputText id="nombres" value="#{personaController.persona.nombres}" title="Nombres" disabled="true" />
+                    <h:outputLabel value="Apellidos:" for="apellidos" />
+                    <h:inputText id="apellidos" value="#{personaController.persona.apellidos}" title="Apellidos" disabled="true" />
+                    <h:outputLabel value="Correo:" for="correo" />
+                    <h:inputText id="correo" value="#{personaController.persona.correo}" title="Correo" disabled="true" />
+                    <h:outputLabel value="Telefono:" for="telefono" />
+                    <h:inputText id="telefono" value="#{personaController.persona.telefono}" title="Telefono" disabled="true" />
+                    <h:outputLabel value="Documento:" for="documento" />
+                    <h:inputText id="documento" value="#{personaController.persona.documento}" title="Documento" disabled="true" />
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>

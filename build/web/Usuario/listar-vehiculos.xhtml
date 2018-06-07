@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/Facelets/Templates/base.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="titulo">
+        Listar Vehiculos
+    </ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Vehiculos"/></h1>
+                
+                <h:dataTable value="#{registroVehiculoController.listarRegistros()}" var="item" id="registros">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Categoria"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vehiculoId.categoriaId.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Marca"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vehiculoId.marcaId.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Color"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vehiculoId.color}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Estado"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vehiculoId.estadoId.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Precio"/>
+                        </f:facet>
+                        <h:outputText value="#{item.vehiculoId.precio}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:selectOneMenu value="#{registroVehiculoController.master.id}">
+                                <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
+                                <f:selectItems value="#{masterController.listarCategorias()}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.id}" />
+                                <f:ajax event="change" execute="#{registroVehiculoController.filtrarCategoria()}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                        <h:commandLink value="Datos Vendedor" action="#{personaController.datosPersona(item.usuarioId.personaId)}" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
