@@ -11,6 +11,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 /**
  *
@@ -40,13 +42,15 @@ public class PersonaController implements Serializable {
     }
     
     public void crearPersona(){
+        FacesContext context = FacesContext.getCurrentInstance();
         try {
             pf.validarUsuario(persona.getCorreo());
             persona.setHabilitado((short) 1);
             pf.create(persona);
+            context.addMessage(null, new FacesMessage("Exito", "La información ha sido almacenada satisfactoriamente"));
             persona = new Persona();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            context.addMessage(null, new FacesMessage("Error", e.getMessage()));
         }
     }
     

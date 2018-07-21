@@ -17,6 +17,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 /**
  *
@@ -91,6 +92,7 @@ public class VehiculoController implements Serializable {
     }
     
     public void registrarVehiculo(){
+        FacesContext context = FacesContext.getCurrentInstance();
         usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioSesion");
         try {
             vf.validarVehiculo(vehiculo.getPlaca());
@@ -103,10 +105,11 @@ public class VehiculoController implements Serializable {
             registroVehiculo.setUsuarioId(usuario);
             registroVehiculo.setHabilitado((short) 1);
             rvf.create(registroVehiculo);
+            context.addMessage(null, new FacesMessage("Exito", "La información ha sido almacenada satisfactoriamente"));
             vehiculo = new Vehiculo();
             registroVehiculo = new RegistroVehiculo();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            context.addMessage(null, new FacesMessage("Error", e.getMessage()));
         }
     }
 }

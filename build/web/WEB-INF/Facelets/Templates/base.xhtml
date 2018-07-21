@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library="css" name="default.css"/>
@@ -17,19 +18,13 @@
         <div>
             <div id="left">
                 <h:form>
-                    <ul>
-                        <li>
-                            <a href="#{request.contextPath}/faces/Usuario/index.xhtml">Inicio</a>
-                        </li>
+                    <p:megaMenu>
+                        <p:menuitem value="Inicio" icon="ui-icon-home" url="index.xhtml" />  
                         <c:forEach items="#{usuarioController.listarPermisosUsuario()}" var="item">
-                            <li>
-                                <a href="#{request.contextPath}#{item[1]}">#{item[0]}</a>
-                            </li>   
+                            <p:menuitem value="#{item[0]}" icon="ui-icon-close" url="#{item[1]}" />
                         </c:forEach>
-                        <li>
-                            <h:commandLink action="#{usuarioController.cerrarSesion()}" value="Salir" />
-                        </li>
-                    </ul>
+                        <p:menuitem value="Salir" icon="ui-icon-close" action="#{usuarioController.cerrarSesion()}" />
+                    </p:megaMenu>
                 </h:form>
             </div>
             <div id="content" class="left_content">

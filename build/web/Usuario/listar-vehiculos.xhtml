@@ -4,61 +4,59 @@
                 template="./../WEB-INF/Facelets/Templates/base.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="titulo">
         Listar Vehiculos
     </ui:define>
 
     <ui:define name="content">
-        <f:view>
-            <h:form>
-                <h1><h:outputText value="Vehiculos"/></h1>
-                
-                <h:dataTable value="#{registroVehiculoController.listarRegistros()}" var="item" id="registros">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Categoria"/>
+        <h:form>
+            <f:view>
+                <p:dataTable value="#{registroVehiculoController.listarRegistros()}" var="item" widgetVar="carsTable">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Buscar:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Buscar"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="Categoria" filterBy="#{item.vehiculoId.categoriaId.nombre}">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('carsTable').filter()" >
+                                <f:selectItem itemLabel="--Seleccionar--" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{masterController.listarCategorias()}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}"/>
+                            </p:selectOneMenu>
                         </f:facet>
                         <h:outputText value="#{item.vehiculoId.categoriaId.nombre}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Marca"/>
+                    </p:column>
+
+                    <p:column headerText="Marca" filterBy="#{item.vehiculoId.marcaId.nombre}">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('carsTable').filter()" >
+                                <f:selectItem itemLabel="--Seleccionar--" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{masterController.listarMarcas()}" var="m" itemLabel="#{m.nombre}" itemValue="#{m.nombre}"/>
+                            </p:selectOneMenu>
                         </f:facet>
                         <h:outputText value="#{item.vehiculoId.marcaId.nombre}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Color"/>
-                        </f:facet>
-                        <h:outputText value="#{item.vehiculoId.color}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Estado"/>
-                        </f:facet>
-                        <h:outputText value="#{item.vehiculoId.estadoId.nombre}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Precio"/>
-                        </f:facet>
-                        <h:outputText value="#{item.vehiculoId.precio}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:selectOneMenu value="#{registroVehiculoController.master.id}">
-                                <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
-                                <f:selectItems value="#{masterController.listarCategorias()}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.id}" />
-                                <f:ajax event="change" execute="#{registroVehiculoController.filtrarCategoria()}"/>
-                            </h:selectOneMenu>
-                        </f:facet>
-                        <h:commandLink value="Datos Vendedor" action="#{personaController.datosPersona(item.usuarioId.personaId)}" />
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
-    </ui:define>
+                    </p:column>
 
+                    <p:column headerText="Color" filterBy="#{item.vehiculoId.color}">
+                        <h:outputText value="#{item.vehiculoId.color}"/>
+                    </p:column>
+
+                    <p:column headerText="Estado" filterBy="#{item.vehiculoId.estadoId.nombre}">
+                        <h:outputText value="#{item.vehiculoId.estadoId.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Precio" filterBy="#{item.vehiculoId.precio}">
+                        <h:outputText value="#{item.vehiculoId.precio}"/>
+                    </p:column>
+                    <p:column>
+                        <h:commandLink target="_blank" value="Datos Vendedor" action="#{personaController.datosPersona(item.usuarioId.personaId)}" />
+                    </p:column>
+                </p:dataTable>
+            </f:view>            
+        </h:form>
+    </ui:define>
 </ui:composition>

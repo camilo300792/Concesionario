@@ -4,26 +4,28 @@
                 template="./../WEB-INF/Facelets/Templates/base.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="titulo">
         Asignar Rol
     </ui:define>
     <ui:define name="content">
         <f:view>
             <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true" />
                 <h1><h:outputText value="Asignar Rol"/></h1>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Rol:" for="rolId" />
-                    <h:selectOneMenu id="rolId" value="#{rolUsuarioController.rol.id}" title="RolId" required="true" requiredMessage="The RolId field is required.">
+                    <p:outputLabel value="Rol:" for="rolId" />
+                    <p:selectOneMenu id="rolId" value="#{rolUsuarioController.rol.id}" required="true" requiredMessage="The RolId field is required.">
                         <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
                         <f:selectItems value="#{rolController.listarRoles()}" var="item" itemLabel="#{item.nombre}" itemValue="#{item.id}" />
-                    </h:selectOneMenu>
-                    <h:outputLabel value="Usuario:" for="usuarioId" />
-                    <h:selectOneMenu id="usuarioId" value="#{rolUsuarioController.usuario.id}" title="UsuarioId" required="true" requiredMessage="The UsuarioId field is required.">
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Usuario:" for="usuarioId" />
+                    <p:selectOneMenu id="usuarioId" value="#{rolUsuarioController.usuario.id}" required="true" filter="true" filterMatchMode="startsWith" requiredMessage="The UsuarioId field is required.">
                         <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
                         <f:selectItems value="#{usuarioController.listarUsuarios()}" var="item" itemLabel="#{item.personaId.nombres}" itemValue="#{item.id}"/>
-                    </h:selectOneMenu>
-                    <h:commandButton action="#{rolUsuarioController.asignarRol()}" value="Asignar Rol" />
+                    </p:selectOneMenu>
+                    <p:commandButton actionListener="#{rolUsuarioController.asignarRol()}" value="Asignar Rol" icon="ui-icon-disk" update="growl"/>
                 </h:panelGrid>
             </h:form>
         </f:view>

@@ -4,7 +4,8 @@
                 template="./../WEB-INF/Facelets/Templates/base.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="titulo">
         Registrar Vehiculo
@@ -12,30 +13,31 @@
     <ui:define name="content">
         <f:view>
             <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true" />
                 <h1><h:outputText value="Registrar Vevhiculo"/></h1>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Placa:" for="placa" />
-                    <h:inputText id="placa" value="#{vehiculoController.vehiculo.placa}" title="Placa" required="true" requiredMessage="Debe ingresar la marca"/>
-                    <h:outputLabel value="Color:" for="color" />
-                    <h:inputText id="color" value="#{vehiculoController.vehiculo.color}" title="Color" required="true" requiredMessage="Debe ingresar el color"/>
-                    <h:outputLabel value="Precio:" for="precio" />
-                    <h:inputText id="precio" value="#{vehiculoController.vehiculo.precio}" title="Precio" required="true" requiredMessage="Debe ingresar el precio"/>
-                    <h:outputLabel value="Marca:" for="marcaId" />
-                    <h:selectOneMenu id="marcaId" value="#{vehiculoController.marca.id}" title="MarcaId" required="true" requiredMessage="Debe seleccionar la marca">
+                    <p:outputLabel value="Placa:" for="placa" />
+                    <p:inputText id="placa" value="#{vehiculoController.vehiculo.placa}" title="Placa" required="true" requiredMessage="Debe ingresar la marca"/>
+                    <p:outputLabel value="Color:" for="color" />
+                    <p:inputText id="color" value="#{vehiculoController.vehiculo.color}" title="Color" required="true" requiredMessage="Debe ingresar el color"/>
+                    <p:outputLabel value="Precio:" for="precio" />
+                    <p:inputText id="precio" value="#{vehiculoController.vehiculo.precio}" title="Precio" required="true" requiredMessage="Debe ingresar el precio"/>
+                    <p:outputLabel value="Marca:" for="marcaId" />
+                    <p:selectOneMenu id="marcaId" value="#{vehiculoController.marca.id}" required="true" requiredMessage="Debe seleccionar la marca">
                         <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
                         <f:selectItems value="#{masterController.listarMarcas()}" var="marca" itemLabel="#{marca.nombre}" itemValue="#{marca.id}" />
-                    </h:selectOneMenu>
-                    <h:outputLabel value="Estado:" for="estadoId" />
-                    <h:selectOneMenu id="estadoId" value="#{vehiculoController.estado.id}" title="EstadoId" required="true" requiredMessage="Debe seleccionar el esatdo">
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Estado:" for="estadoId" />
+                    <p:selectOneMenu id="estadoId" value="#{vehiculoController.estado.id}" required="true" requiredMessage="Debe seleccionar el esatdo">
                         <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
                         <f:selectItems value="#{masterController.listarEstados()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.id}" />
-                    </h:selectOneMenu>
-                    <h:outputLabel value="Categoria:" for="categoriaId" />
-                    <h:selectOneMenu id="categoriaId" value="#{vehiculoController.categoria.id}" title="CategoriaId" required="true" requiredMessage="Debe seleccionar la categoria">
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Categoria:" for="categoriaId" />
+                    <p:selectOneMenu id="categoriaId" value="#{vehiculoController.categoria.id}" required="true" requiredMessage="Debe seleccionar la categoria">
                         <f:selectItem itemLabel="--Seleccionar--" itemDisabled="true" />
                         <f:selectItems value="#{masterController.listarCategorias()}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.id}" />
-                    </h:selectOneMenu>
-                    <h:commandButton action="#{vehiculoController.registrarVehiculo()}" value="Registrar Vehiculo" />
+                    </p:selectOneMenu>
+                    <p:commandButton actionListener="#{vehiculoController.registrarVehiculo()}" value="Registrar Vehiculo" icon="ui-icon-disk" update="growl"/>
                 </h:panelGrid>
             </h:form>
         </f:view>

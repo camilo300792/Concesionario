@@ -14,6 +14,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
@@ -98,10 +99,12 @@ public class UsuarioController implements Serializable {
     }
     
     public String editarPerfil(){
+        FacesContext context = FacesContext.getCurrentInstance();
         pf.edit(persona);
         usuarioSesion.setUsername(persona.getCorreo());
         usuarioSesion.setContrasena(persona.getDocumento());
         uf.edit(usuarioSesion);
+        context.addMessage(null, new FacesMessage("Exito", "La información ha sido almacenada satisfactoriamente"));
         return "/Usuario/editar-perfil?faces-redirect=true";
     }
     

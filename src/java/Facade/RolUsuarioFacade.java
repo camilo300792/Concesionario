@@ -5,10 +5,14 @@
  */
 package Facade;
 
+import Entity.Rol;
 import Entity.RolUsuario;
+import Entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +32,21 @@ public class RolUsuarioFacade extends AbstractFacade<RolUsuario> {
     public RolUsuarioFacade() {
         super(RolUsuario.class);
     }
+    
+    /**
+     * 
+     * @param rolId
+     * @param usuarioId
+     * @return Boolean 
+     * @throws Exception 
+     */
+    public Boolean verificarRolUsuario(Rol rolId, Usuario usuarioId) throws Exception{
+        Query query = em.createNamedQuery("RolUsuario.findByRolUsuario");
+        query.setParameter("rolId", rolId);
+        query.setParameter("usuarioId", usuarioId);
+        List<RolUsuario> result = query.getResultList();
+        if(!result.isEmpty()) throw new Exception("Este usuario ya tiene este rol");
+        return true;
+    } 
     
 }

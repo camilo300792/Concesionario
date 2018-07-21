@@ -4,24 +4,26 @@
                 template="./../WEB-INF/Facelets/Templates/base.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="titulo">Crear Usuario</ui:define>
     <ui:define name="content">
         <f:view>
             <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true" />
                 <h1><h:outputText value="Crear Usuarios"/></h1>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Nombres:" for="nombres" />
-                    <h:inputText id="nombres" value="#{personaController.persona.nombres}" title="Nombres" required="true" requiredMessage="El nombre es requerido"/>
-                    <h:outputLabel value="Apellidos:" for="apellidos" />
-                    <h:inputText id="apellidos" value="#{personaController.persona.apellidos}" title="Apellidos" required="true" requiredMessage="Los apellidos son requeridos"/>
-                    <h:outputLabel value="Correo:" for="correo" />
-                    <h:inputText id="correo" value="#{personaController.persona.correo}" title="Correo" required="true" requiredMessage="El correo es requerido"/>
-                    <h:outputLabel value="Telefono:" for="telefono" />
-                    <h:inputText id="telefono" value="#{personaController.persona.telefono}" title="Telefono" required="true" requiredMessage="El teléfono es requerido"/>
-                    <h:outputLabel value="Documento:" for="documento" />
-                    <h:inputText id="documento" value="#{personaController.persona.documento}" title="Documento" required="true" requiredMessage="El documento es requerido"/>
-                    <h:commandButton action="#{personaController.crearPersona()}" value="Crear Usuario"/>
+                <h:panelGrid columns="2">                    	
+                    <p:outputLabel value="Nombres:" for="nombres" />
+                    <p:inputText id="nombres" value="#{personaController.persona.nombres}" title="Nombres" required="true" requiredMessage="El nombre es requerido"/>
+                    <p:outputLabel value="Apellidos:" for="apellidos" />
+                    <p:inputText id="apellidos" value="#{personaController.persona.apellidos}" title="Apellidos" required="true" requiredMessage="Los apellidos son requeridos"/>
+                    <p:outputLabel value="Correo:" for="correo" />
+                    <p:inputText id="correo" value="#{personaController.persona.correo}" title="Correo" required="true" requiredMessage="El correo es requerido"/>
+                    <p:outputLabel value="Telefono:" for="telefono" />
+                    <p:inputText id="telefono" value="#{personaController.persona.telefono}" title="Telefono" required="true" requiredMessage="El teléfono es requerido"/>
+                    <p:outputLabel value="Documento:" for="documento" />
+                    <p:inputText id="documento" value="#{personaController.persona.documento}" title="Documento" required="true" requiredMessage="El documento es requerido"/>
+                    <p:commandButton actionListener="#{personaController.crearPersona()}" value="Crear Usuario" icon="ui-icon-disk" update="growl"/>
                 </h:panelGrid>
             </h:form>
         </f:view>

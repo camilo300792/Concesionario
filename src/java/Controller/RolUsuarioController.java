@@ -15,6 +15,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -68,11 +70,18 @@ public class RolUsuarioController implements Serializable {
     }
     
     public void asignarRol(){
-        rolUsuario.setHabilitado((short) 1);
-        rolUsuario.setUsuarioId(uf.find(usuario.getId()));
-        rolUsuario.setRolId(rf.find(rol.getId()));
-        ruf.create(rolUsuario);
-        rolUsuario = new RolUsuario();
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            ruf.verificarRolUsuario(rf.find(rol.getId()), uf.find(usuario.getId()));
+            rolUsuario.setHabilitado((short) 1);
+            rolUsuario.setUsuarioId(uf.find(usuario.getId()));
+            rolUsuario.setRolId(rf.find(rol.getId()));
+            ruf.create(rolUsuario);
+            rolUsuario = new RolUsuario();
+            context.addMessage(null, new FacesMessage("Exito", "La información ha sido almacenada satisfactoriamente"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage("Info", e.getMessage()));
+        }
     }
     
 }
